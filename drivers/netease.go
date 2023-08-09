@@ -23,7 +23,9 @@ func getHistoryFile() string {
 	}
 	return path
 }
-func getNowPlaying(path string) (string, []string) {
+
+func getNowPlaying() (string, []string) {
+	path := getHistoryFile()
 	trackInfo := make(map[string]interface{})
 	file, err := os.Open(path)
 	if err != nil {

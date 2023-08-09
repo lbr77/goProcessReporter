@@ -45,3 +45,11 @@ func getPlayingMusicByWindowsAPI() string { //maybe get nothing. || always get n
 	mciSendString.Call(uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(mciCommand))), uintptr(unsafe.Pointer(&buffer)), uintptr(len(buffer)), 0)
 	return syscall.UTF16ToString(buffer[:])
 }
+
+func getApplicationForeground() string {
+	hwnd := getForegroundWindowHandle()
+	if hwnd == 0 {
+		return ""
+	}
+	return getWindow2Text(hwnd)
+}
