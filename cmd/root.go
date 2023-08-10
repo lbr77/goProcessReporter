@@ -8,7 +8,7 @@ import (
 )
 
 var RootCmd = &cobra.Command{
-	Use:   "processreporter",
+	Use:   "goProcessReporter",
 	Short: "A Process reporter used by Shiro",
 }
 
