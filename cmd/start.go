@@ -16,6 +16,7 @@ var StartCmd = &cobra.Command{
 	Use:   "start",
 	Short: "Start service",
 	Run: func(cmd *cobra.Command, args []string) {
+		// fmt.Println(filepath.Dir(os.Args[0]), os.Args[0])
 		config := config.ReadConfig(configPath)
 		cycle(config)
 		os.Exit(0)

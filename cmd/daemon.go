@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"goProcessReporter/drivers/logger"
 	"goProcessReporter/drivers/winapi"
 	"os"
@@ -22,6 +23,7 @@ var DaemonStartCmd = &cobra.Command{
 			os.Exit(1)
 		}
 		command := exec.Command(os.Args[0], "start", "--config", configPath)
+
 		command.Start()
 		os.Exit(0)
 	},
@@ -36,6 +38,7 @@ var DaemonStopCmd = &cobra.Command{
 			if pid != uint32(os.Getpid()) {
 				winapi.StopPid(pid)
 				logger.Log.Info("Daemon Closed.")
+				fmt.Println("Daemon Closed.")
 			}
 		}
 	},
