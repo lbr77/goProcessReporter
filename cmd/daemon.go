@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"goProcessReporter/drivers/logger"
 	"goProcessReporter/drivers/winapi"
 	"os"
@@ -16,8 +15,13 @@ var DaemonStartCmd = &cobra.Command{
 	Use:   "start-daemon",
 	Short: "Start in background",
 	Run: func(cmd *cobra.Command, args []string) {
+		programName := filepath.Base(os.Args[0])
+		pids := winapi.GetRunningPids(programName)
+		if len(pids) > 1 {
+			logger.Log.Error("Daemon Already Running")
+			os.Exit(1)
+		}
 		command := exec.Command(os.Args[0], "start", "--config", configPath)
-		fmt.Println(command)
 		command.Start()
 		os.Exit(0)
 	},
