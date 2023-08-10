@@ -3,6 +3,7 @@ package api
 import (
 	"bytes"
 	"fmt"
+	"goProcessReporter/drivers/logger"
 	"io"
 	"net/http"
 	"time"
@@ -35,7 +36,7 @@ func Report(processName, apiKey, apiUrl string, mediaTitle string, mediaArtist s
 	client := &http.Client{}
 	req, err := http.NewRequest("POST", apiUrl, bytes.NewBuffer([]byte(formedData)))
 	if err != nil {
-		fmt.Println("Failed to create request,", err)
+		logger.Log.Error("Failed to create request,", err)
 		return
 	}
 	for key, value := range headers {
@@ -43,14 +44,14 @@ func Report(processName, apiKey, apiUrl string, mediaTitle string, mediaArtist s
 	}
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Println("Failed to send POST request,", err)
+		logger.Log.Error("failed to post", err)
 		return
 	}
 	defer resp.Body.Close()
 	responseBody, err := io.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Println("Failed to read response body,", err)
+		logger.Log.Error("Failed to read response body,", err)
 		return
 	}
-	fmt.Println(string(responseBody))
+	logger.Log.Info(string(responseBody))
 }

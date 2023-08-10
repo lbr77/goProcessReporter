@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"fmt"
+	"goProcessReporter/drivers/logger"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -14,7 +14,7 @@ var RootCmd = &cobra.Command{
 
 func Execute() {
 	if err := RootCmd.Execute(); err != nil {
-		fmt.Println(err)
+		logger.Log.Error(err)
 		os.Exit(1)
 	}
 }

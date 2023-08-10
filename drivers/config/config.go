@@ -1,7 +1,7 @@
 package config
 
 import (
-	"fmt"
+	"goProcessReporter/drivers/logger"
 	"os"
 
 	"gopkg.in/yaml.v3"
@@ -23,12 +23,12 @@ type Config struct {
 func ReadConfig(configPath string) Config {
 	yamlFile, err := os.ReadFile(configPath)
 	if err != nil {
-		fmt.Println("Error reading config,", err)
+		logger.Log.Error("Error reading config,", err)
 		return Config{}
 	}
 	var config Config
 	if err = yaml.Unmarshal(yamlFile, &config); err != nil {
-		fmt.Println("Failed to parse file", err)
+		logger.Log.Error("Failed to parse file", err)
 		return Config{}
 	}
 	return config

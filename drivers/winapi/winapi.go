@@ -2,6 +2,7 @@ package winapi
 
 import (
 	"fmt"
+	"goProcessReporter/drivers/logger"
 	"syscall"
 	"unsafe"
 )
@@ -76,7 +77,7 @@ func isProcessRunning(pid uint32, program string) bool {
 func GetRunningPids(program string) []uint32 {
 	pids, err := getProcessIds()
 	if err != nil {
-		fmt.Println(err)
+		logger.Log.Error(err)
 		return nil
 	}
 	var retPids []uint32
@@ -91,13 +92,13 @@ func GetRunningPids(program string) []uint32 {
 func StopPid(pid uint32) {
 	handle, err := syscall.OpenProcess(syscall.PROCESS_TERMINATE, false, pid)
 	if err != nil {
-		fmt.Println("Failed to open", err)
+		logger.Log.Error("Failed to open", err)
 		return
 	}
 	defer syscall.CloseHandle(handle)
 	err = syscall.TerminateProcess(handle, 0)
 	if err != nil {
-		fmt.Println("Failed to terminate", err)
+		logger.Log.Error("Failed to terminate", err)
 		return
 	}
 	return

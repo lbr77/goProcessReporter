@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"goProcessReporter/drivers/api"
 	"goProcessReporter/drivers/config"
 	"goProcessReporter/drivers/music"
@@ -17,8 +16,6 @@ var StartCmd = &cobra.Command{
 	Use:   "start",
 	Short: "Start service",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Start Processing...")
-		fmt.Println("read config files from", configPath)
 		config := config.ReadConfig(configPath)
 		cycle(config)
 		os.Exit(0)
@@ -34,7 +31,6 @@ func init() {
 func cycle(configs config.Config) {
 	for {
 		title := utils.GetApplicationName(winapi.GetActiveWindowProcessAndTitle())
-		fmt.Println(title)
 		title = utils.ReplaceString(title, configs.Replace, configs.ReplaceTo)
 		title = utils.HideString(title, configs.Keywords)
 		mediaTitle, mediaArtist := music.GetNowPlaying()
