@@ -24,7 +24,7 @@ func getHistoryFile() string {
 	return path
 }
 
-func getNowPlaying() (string, []string) {
+func GetNowPlaying() (string, string) {
 	path := getHistoryFile()
 	trackInfo := make(map[string]interface{})
 	file, err := os.Open(path)
@@ -55,7 +55,7 @@ func getNowPlaying() (string, []string) {
 	}
 
 	if len(trackInfo) == 0 {
-		return "", nil
+		return "", ""
 	}
 
 	trackName := trackInfo["track"].(map[string]interface{})["name"].(string)
@@ -65,5 +65,5 @@ func getNowPlaying() (string, []string) {
 		artistList = append(artistList, artist.(map[string]interface{})["name"].(string))
 	}
 
-	return trackName, artistList
+	return trackName, strings.Join(artistList, "/ ")
 }

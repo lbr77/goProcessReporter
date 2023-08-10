@@ -1,6 +1,6 @@
 package main
 
-import "github.com/lbr77/goProcessReporter/cmd"
+import "goProcessReporter/cmd"
 
 func main() {
 	cmd.Execute()

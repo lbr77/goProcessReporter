@@ -10,7 +10,7 @@ import (
 
 // # in this file we try to send file to API configured as API_URL
 
-func report(processName, apiKey, apiUrl string, mediaTitle string, mediaArtist string) {
+func Report(processName, apiKey, apiUrl string, mediaTitle string, mediaArtist string) {
 	headers := map[string]string{
 		"Content-Type": "application/json",
 		"User-Agent":   "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0",
